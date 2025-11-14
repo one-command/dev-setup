@@ -8,7 +8,7 @@
 
 > **Set up your entire development environment with a single command.** No manual installations, no configuration headaches, no hours wasted. Just one line and you're ready to code.
 ```bash
-curl -s https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/install.sh | bash
 ```
 
 ---
@@ -54,15 +54,27 @@ curl -s https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh
 
 ### Installation
 
-**Option 1: Direct Install (Recommended)**
+**Option 1: One Command Install (Recommended)**
 ```bash
-curl -s https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/install.sh | bash
 ```
 
-**Option 2: Review First (Security Conscious)**
+**Option 2: Two-Step Install (More Secure)**
 ```bash
-# Download and inspect the script
-curl -s https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh > devsetup.sh
+# Download the installer
+curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/install.sh -o install.sh
+
+# Review it (optional)
+cat install.sh
+
+# Run it
+bash install.sh
+```
+
+**Option 3: Direct Script Execution (Advanced)**
+```bash
+# Download the main script
+curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh -o devsetup.sh
 
 # Review it
 cat devsetup.sh
@@ -100,12 +112,22 @@ chmod +x devsetup.sh
 - Pure Bash script - no hidden binaries
 - Every action is visible
 - Error handling throughout
+- Works correctly with piped installation
 
 ---
 
 ## 📋 Usage Example
 ```bash
-$ curl -s https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh | bash
+$ curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/install.sh | bash
+
+╔════════════════════════════════════════╗
+║                                        ║
+║     🚀 One Command Dev Setup 🚀        ║
+║                                        ║
+╚════════════════════════════════════════╝
+
+📥 Downloading installation script...
+✓ Script downloaded successfully!
 
 ╔════════════════════════════════════════╗
 ║                                        ║
@@ -119,6 +141,9 @@ Detected OS: Ubuntu
   🎯 Installation Preferences
 ==========================================
 
+This script will install essential development tools.
+You can choose which additional categories to install.
+
 📦 Install Package Managers & Tools (Starship)? (y/n): y
 🛠️  Install Essential Dev Tools (Postman, DBeaver)? (y/n): y
 ✨ Install Code Quality Tools (ESLint, Prettier, Pre-commit)? (y/n): n
@@ -130,9 +155,21 @@ Detected OS: Ubuntu
 Installing Core Tools...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🐳 Docker Engine 28.5.2 installed ✓
-🔧 Git 2.51.2 installed ✓
-📗 Node.js 22.14.0 installed ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🐳 Docker Engine & Docker Compose
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Docker Engine 28.5.2 installed ✓
+   Docker Compose 2.40.3 installed ✓
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 Git
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Git 2.51.2 installed ✓
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📗 Node.js (via nvm)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Node.js 22.14.0 installed ✓
 ...
 
 ╔════════════════════════════════════════╗
@@ -140,32 +177,59 @@ Installing Core Tools...
 ║       ✅ Setup Complete! 🎉            ║
 ║                                        ║
 ╚════════════════════════════════════════╝
+
+📥 Newly Installed:
+   ✓ Postman
+   ✓ Starship
+   ✓ bat
+   ✓ fzf
+
+✓ Already Installed:
+   • Docker Engine 28.5.2
+   • Git 2.51.2
+   • Node.js 22.14.0
+   • Python 3.12.3
+   • Go 1.25.4
+   • Rust 1.91.1
+   • VSCode 1.105.1
+
+📝 Important Notes:
+   • Restart your terminal to apply PATH changes
+   • Run: source ~/.bashrc to reload your shell
+
+Made by Daniel D - https://www.youtube.com/@one-command
+
+🚀 Happy coding!
 ```
 
 ---
 
 ## 🔧 How It Works
 
-### 1. **OS Detection**
+### 1. **Smart Wrapper**
+The `install.sh` wrapper downloads and executes the main script while properly handling stdin, ensuring interactive prompts work even when piped from curl.
+
+### 2. **OS Detection**
 The script automatically detects your Linux distribution (Ubuntu, Debian, etc.) and adapts installation methods accordingly.
 
-### 2. **Smart Checking**
+### 3. **Smart Checking**
 Before installing anything, it checks:
 - Is the tool already installed?
 - What version is currently installed?
 - Is there a newer version available?
 
-### 3. **Best Installation Methods**
+### 4. **Best Installation Methods**
 - **Docker**: Official Docker repositories
 - **Node.js**: NVM for version management
 - **Go & VSCode**: Snap (with apt fallback)
 - **Rust**: Official rustup installer
 - **Python**: System package manager
+- **Dev Tools**: Snap packages for easy updates
 
-### 4. **PATH Management**
+### 5. **PATH Management**
 Automatically updates your `.bashrc` and `.profile` to include newly installed tools in your PATH.
 
-### 5. **Cleanup & Verification**
+### 6. **Cleanup & Verification**
 - Removes broken repositories
 - Verifies installations succeeded
 - Provides clear summary of what was done
@@ -194,6 +258,9 @@ Yes! The script is:
 - Well-tested on Ubuntu and Debian
 - Uses official installation methods
 
+### **Why use the wrapper script?**
+The `install.sh` wrapper ensures interactive prompts work correctly when piping from curl. It downloads the main script and executes it with proper terminal handling.
+
 ### **Can I customize what gets installed?**
 Absolutely! The script asks you interactively, or you can fork it and modify the code directly.
 
@@ -217,6 +284,16 @@ For Docker group changes (if Docker was just installed), log out and back in.
 
 ## 🛠️ Troubleshooting
 
+### **Interactive prompts not working**
+Make sure you're using the `install.sh` wrapper, not the direct `devsetup.sh` script when piping from curl:
+```bash
+# ✅ Correct
+curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/install.sh | bash
+
+# ❌ Won't work with interactive prompts when piped
+curl -fsSL https://raw.githubusercontent.com/one-command/dev-setup/main/devsetup.sh | bash
+```
+
 ### **Go or Rust command not found**
 Restart your terminal or run:
 ```bash
@@ -231,6 +308,13 @@ newgrp docker
 
 ### **Git upgrade didn't work**
 On Debian, the latest Git version may not be available in standard repos. The script uses backports, but you may need to build from source for the absolute latest.
+
+### **Snap installations failing**
+Some minimal Ubuntu installations don't have snapd. The script will try to install it automatically, but you may need to run:
+```bash
+sudo apt update
+sudo apt install snapd
+```
 
 ---
 
@@ -248,9 +332,11 @@ Contributions are welcome! Feel free to:
 git clone https://github.com/one-command/dev-setup.git
 cd dev-setup
 
-# Make changes to devsetup.sh
+# Make changes to devsetup.sh or install.sh
 
 # Test on a fresh VM
+./install.sh
+# or
 ./devsetup.sh
 ```
 
